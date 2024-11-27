@@ -22,3 +22,8 @@ redirect_urls = [ "https://rsn8inc.netlify.app/api/auth" ]
 
 [pos]
 embedded = false
+
+[build]
+include_config_on_deploy = true
+dev_store_url = "ym-rnr-ventanas.myshopify.com"
+automatically_update_urls_on_dev = true
