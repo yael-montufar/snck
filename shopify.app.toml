@@ -1,0 +1,24 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "aba109f42f43bfa9621fc90c66a6b4b5"
+application_url = "https://rsn8inc.netlify.app/"
+embedded = true
+name = "rsn8-events"
+handle = "rsn8-events"
+
+[webhooks]
+api_version = "2024-10"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled", "orders/create" ]
+  uri = "/webhooks/orders/create"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_customers, read_metaobjects, write_orders, read_orders, read_products"
+
+[auth]
+redirect_urls = [ "https://rsn8inc.netlify.app/api/auth" ]
+
+[pos]
+embedded = false
