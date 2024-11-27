@@ -1,16 +1,16 @@
 import { authenticate } from "../shopify.server";
-import db from "../db.server";
 
-export const action = async ({ request }) => {
-  const { shop, session, topic } = await authenticate.webhook(request);
+export const loader = async ({ request }) => {
+  try {
+    // Authenticate the webhook request
+    const { shop, topic } = await authenticate.webhook(request);
+    console.log(`Received ${topic} webhook for shop: ${shop}`);
 
-  console.log(`Received ${topic} webhook for ${shop}`);
+    // TODO: Perform any necessary cleanup actions for the shop here
 
-  // Webhook requests can trigger multiple times and after an app has already been uninstalled.
-  // If this webhook already ran, the session may have been deleted previously.
-  if (session) {
-    await db.session.deleteMany({ where: { shop } });
+    return new Response("Uninstalled webhook processed successfully", { status: 200 });
+  } catch (error) {
+    console.error("Error handling app/uninstalled webhook:", error);
+    return new Response("Internal Server Error", { status: 500 });
   }
-
-  return new Response();
 };
